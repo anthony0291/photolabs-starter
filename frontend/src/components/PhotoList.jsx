@@ -1,12 +1,26 @@
-import React from 'react';
+import PhotoListItem from './PhotoListItem';
+import React, {useState} from 'react';
 
 import '../styles/PhotoList.scss';
 
-const PhotoList = () => {
-  <ul className="photo-list">
-    {/* Insert React */}
-  </ul>
-}
+
+const PhotoList = (props) => {
+  const { photos } = props;
+
+  const photoList = Object.values(photos);
+  const parsedPhotos = photoList.map((photo) => (
+    <PhotoListItem key={photo.id} {...photo}  />
+  ));
+
+  return (
+    <ul className="photo-list">
+      {parsedPhotos}
+      {parsedPhotos}
+      
+    </ul>
+  );
+
+};
 
 PhotoList.defaultProps = {
   photos: [
@@ -42,6 +56,7 @@ PhotoList.defaultProps = {
         "username": "exampleuser",
         "name": "Joe Example",
         "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
+        
       }
     },
     {
@@ -61,7 +76,7 @@ PhotoList.defaultProps = {
         "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
       }
     }
-   ]
-}
+  ]
+};
 
-export default PhotoList
+export default PhotoList;
