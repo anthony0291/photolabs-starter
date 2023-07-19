@@ -1,8 +1,5 @@
 import React from 'react';
 import {useState} from 'react';
-import ImageList from '../components/ImageList';
-import PhotoList from '../components/PhotoList';
-import PhotoListItem from '../components/PhotoListItem';
 import FavIcon from '../components/FavIcon';
 
 

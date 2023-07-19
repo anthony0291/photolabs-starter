@@ -2,8 +2,7 @@ import '../styles/PhotoListItem.scss';
 
 import PhotoFavButton from './PhotoFavButton';
 import React, { useState } from 'react';
-import Popover from '@mui/material/Popover';
-import ImageList from './ImageList';
+
 import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 
 
@@ -18,12 +17,6 @@ const PhotoListItem = (props) => {
   
   const [fill, setFill] = useState(WHITE);
   const [favorite, setFavorite] = useState(false);
-  
-  
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
   
 
   const handlerFavIcon = () => {
@@ -57,10 +50,6 @@ const PhotoListItem = (props) => {
    
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  
 
   const sendSelectImages = () => {
     setModal(true);
@@ -92,17 +81,6 @@ const PhotoListItem = (props) => {
   );
 };
 
-
-// PhotoListItem.defaultProps = {
-//   "id": "1",
-//   "location": {
-//     "city": "Montreal",
-//     "country": "Canada"
-//   },
-//   "imageSource": `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`,
-//   "username": "Jean Example",
-//   "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
-// };
  
 export default PhotoListItem;
 
