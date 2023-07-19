@@ -40,3 +40,26 @@ const App = () => {
 export default App;
 
 
+{/* { Array.from(Array(3)).map((_, index) => <PhotoListItem key={index}/>) } */}
+
+
+
+
+const App = () => {
+  const [user, setUser] = useState(null);
+  const UserContext = React.createContext(null);
+  
+  return (
+    <Router>
+      <div className="App">
+        <UserContext.Provider value={{ user: user, setUser: setUser }}>
+          <Topbar />
+          <Switch>
+            <HomeRoute />
+          </Switch>
+          <BottomBar />
+        </UserContext.Provider>
+      </div>
+    </Router>
+  );
+};

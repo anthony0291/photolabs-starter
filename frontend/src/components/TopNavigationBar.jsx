@@ -4,13 +4,14 @@ import TopicList from './TopicList';
 
 import '../styles/TopNavigationBar.scss';
 
-const TopNavigation = () => {
+const TopNavigation = (props) => {
+  const { topicData, navFav } = props;
 
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <TopicList />
-      <FavBadge />
+      <TopicList topicData={topicData}/>
+      <FavBadge {...props} />
     </div>
   );
 };
