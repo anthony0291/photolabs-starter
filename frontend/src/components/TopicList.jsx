@@ -4,10 +4,18 @@ import '../styles/TopicList.scss';
 
 
 const TopicList = (props) => {
+  const {
+    topics,
+  } = props;
 
-  const topicList = Object.values(props.topicData);
+  const topicList = Object.values(topics);
   const parsedTopics = topicList.map((topic) => (
-    <TopicListItem {...topic} key={topic.id} />
+    <TopicListItem
+      key={topic.id}
+      id={topic.id}
+      title={topic.title}
+      // updatePhotosByTopic={updatePhotosByTopic}
+    />
   ));
 
 

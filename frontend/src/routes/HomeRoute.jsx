@@ -11,8 +11,11 @@ import topics from '../mocks/topics';
 import '../styles/HomeRoute.scss';
 
 const HomeRoute = (props) => {
-  const topicData = topics;
-  const photoData =  photos;
+  const {
+    setModal,
+    setSelectImages,
+  } = props;
+
   
   
   const [stillFav, setStillFav] = useState(0);
@@ -48,10 +51,15 @@ const HomeRoute = (props) => {
 
   return (
     <div className="home-route">
-      <TopNavigationBar topicData={topicData} navFav={navFav} />
+      <TopNavigationBar
+        topics={topics} navFav={navFav} />
 
       <ul>
-        <PhotoList photoData={photoData} handleFavUpdate={handleFavUpdate} setModal={props.setModal} setSelectImages={props.setSelectImages} />
+        <PhotoList
+          photos={photos}
+          handleFavUpdate={handleFavUpdate}
+          setModal={setModal}
+          setSelectImages={setSelectImages} />
       </ul>
       
     </div>

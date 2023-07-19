@@ -7,7 +7,7 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 
 
 
-const App = (props) => {
+const App = () => {
   
   const [modal, setModal] = useState(false);
   const [selectImages , setSelectImages] = useState({});

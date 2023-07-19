@@ -5,15 +5,27 @@ import '../styles/PhotoList.scss';
 
 
 const PhotoList = (props) => {
-  const { photoData, handleFavUpdate } = props;
+  const {
+    id,
+    photos,
+    handleFavUpdate,
+    setModal,
+    setSelectImages
+  } = props;
 
  
 
   
 
-  const photoList = Object.values(photoData);
+  const photoList = Object.values(photos);
   const parsedPhotos = photoList.map((photo) => (
-    <PhotoListItem key={photo.id} {...photo} handleFavUpdate={handleFavUpdate} setModal={props.setModal} setSelectImages={props.setSelectImages} />
+    <PhotoListItem
+      key={id}
+      {...photo}
+      handleFavUpdate={handleFavUpdate}
+      setModal={setModal}
+      setSelectImages={setSelectImages}
+    />
   ));
 
   return (
