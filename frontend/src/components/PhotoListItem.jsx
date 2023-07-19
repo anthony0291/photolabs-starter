@@ -7,18 +7,6 @@ import ImageList from './ImageList';
 import PhotoDetailsModal from '../routes/PhotoDetailsModal';
 
 
-// import { useState } from 'react';
-// import { ImageList } from '@mui/material';
-// import React from 'react';
-// import PhotoList from './PhotoList';
-// import FavIcon from './FavIcon';
-// import Typography from '@mui/material/Typography';
-// import Button from '@mui/material/Button';
-// import PhotoList from './PhotoList';
-// import PhotoListItem from './PhotoListItem';
-// import photos from './photos';
-
-
 const WHITE = '#EEEEEE';
 const RED = '#FF0000';
 
