@@ -1,66 +1,99 @@
-// import { useState, useEffect, useReducer } from 'react';
-
-// import { clickedPhotoReducer, favPhotoReducer } from './reducers';
-
-// import axios from 'axios';
+import React, {useState, useReducer } from 'react';
+import photos from '../mocks/photos';
 
 
-// const useApplicationData = () => {
+export const ACTIONS = {
+  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
+  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  SELECT_PHOTO: 'SELECT_PHOTO',
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+};
 
-//   // Setting up state for topics
-//   const [topics, setTopics] = useState([]);
+export const reducer = (state, action) => {
+  console.log("**** incoming action: " + JSON.stringify(action));
+  const chosen = photos.find(photo => photo.id === action.id);
+  switch (action.type) {
+  case ACTIONS.FAV_PHOTO_ADDED:
+  case ACTIONS.FAV_PHOTO_REMOVED:
+    useApplicationData.handleFavUpdate(action.id);
+    return;
+  case ACTIONS.SET_PHOTO_DATA:
+    state.selectImages = {
+      image: chosen.urls.regular,
+      user: chosen.user,
+      location: chosen.location,
+      similarPhotos: chosen.similarPhotos,
+    };
+    return;
+  case ACTIONS.DISPLAY_PHOTO_DETAILS:
+    return;
+  default:
+    throw new Error(
+      `Unsuported Action Type: ${action.type}`
+    );
+  }
+};
 
-//   // Fetch list of topics from api
-//   useEffect(() => {
-//     axios.get('/api/topics')
-//       .then(res => {
-//         setTopics([...res.data]);
-//       })
-//       .catch((error) => {
-//         console.error('Error:', error);
-//       });
-//   }, []);
 
-//   // Setting up state for photos
-//   const [photos, setPhotos] = useState([]);
-//   // Set up the list of photos that we currently want to display
-//   const [displayPhotoListItems, setDisplayPhotoListItems] = useState([]);
+export default function useApplicationData(props) {
+  // const state = useState(true);
 
-//   //Fetch list of photos from api
-//   useEffect(() => {
-//     axios.get('/api/photos')
-//       .then(res => {
-//         setPhotos([...res.data]);
-//         setDisplayPhotoListItems([...res.data]);
-//       })
-//       .catch((error) => {
-//         console.error('Error:', error);
-//       });
-//   }, []);
+  const [modal, setModal] = useState(false);
+  const [selectImages , setSelectImages] = useReducer(reducer, {});
+  
+    
+  const [favoritesList, setFavPhotos] = useReducer(reducer, []);
+  const [photosList, setPhotosList] = useReducer(reducer, []);
+  
+  const state = {favoritesList, photosList, modal, setModal, selectImages, setSelectImages };
+  
+  const handleClose = () => setModal(false);
+  
+  const handleFavUpdate = (itemToUpdate) => {
+    console.log("**** Current Fav PhOtos: " + JSON.stringify(favoritesList));
+    console.log("**** item to toggle: " + itemToUpdate);
+    const indexToRemove = favoritesList.indexOf(itemToUpdate);
+    if (indexToRemove > -1) {
+      favoritesList.splice(indexToRemove, 1);
+    } else {
+      favoritesList.push(itemToUpdate);
+    }
+  
+    console.log("**** Updated Fav Photos: " + JSON.stringify(favoritesList));
+  };
 
-//   // function to update photos based off of a specific topic id
-//   const updatePhotosByTopic = (topicID) => {
-//     axios.get(`/api/topics/photos/${topicID}`)
-//       .then(res => {
-//         setDisplayPhotoListItems([...res.data]);
-//       })
-//       .catch((error) => {
-//         console.error('Error:', error);
-//       });
-//   };
+  const setSelectedImage = (imageChosen) => {
+    const chosen = photos.find(photo => photo.id === imageChosen.id);
+    state.selectImages = {
+      image: chosen.urls.regular,
+      user: chosen.user,
+      location: chosen.location,
+      similarPhotos: chosen.similarPhotos,
+    };
+  };
 
-//   // Setting up an array to store the ids of favorited photos
-//   const [favPhotos, toggleFavorite] = useReducer(favPhotoReducer, []);
-//   // Setting up a value which will be an object to check if a photo in photoList has been clicked
-//   const [clickedPhoto, clickPhoto] = useReducer(clickedPhotoReducer, null);
+  
+  return {
+    state,
+    handleFavUpdate,
+    setSelectedImage,
+    handleClose,
+  };
 
-//   // Setting up state and returning necessary values
-//   return {
-//     state: { favPhotos, clickedPhoto, topics, photos, displayPhotoListItems},
-//     toggleFavorite,
-//     clickPhoto,
-//     updatePhotosByTopic
-//   };
-// };
+}
 
-// export default useApplicationData;
+// export default function Application(props) {
+//   const {
+//     state,
+//     onPhotoSelect,
+//     updateToFavPhotoIds,
+//     onLoadTopic,
+//     onClosePhotoDetailsModal,
+//   } = useApplicationData();
+
+//   return (
+//     // React components
+//   );
+// }

@@ -11,7 +11,7 @@ const PhotoFavButton = function(props) {
   } = props;
 
   return (
-    <div className="list__fav-icon-svg" onClick={handlerFavIcon}>
+    <div className="photo-list__fav-icon" onClick={handlerFavIcon}>
       <FavIcon fill={fill}  />
     </div>
   );

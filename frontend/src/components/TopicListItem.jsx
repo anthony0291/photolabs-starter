@@ -3,7 +3,7 @@ import '../styles/TopicListItem.scss';
 import TopicList from './TopicList';
 
 const TopicListItem = (props) => {
-  const { title} = props;
+  const { title } = props;
 
   return (
     <div className="topic-list__item">

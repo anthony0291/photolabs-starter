@@ -10,12 +10,12 @@ const PhotoList = (props) => {
     photos,
     handleFavUpdate,
     setModal,
-    setSelectImages
+    setSelectImages,
+    favPhotos,
+    setFavPhotos,
+    favoritesList,
   } = props;
 
- 
-
-  
 
   const photoList = Object.values(photos);
   const parsedPhotos = photoList.map((photo) => (
@@ -25,6 +25,10 @@ const PhotoList = (props) => {
       handleFavUpdate={handleFavUpdate}
       setModal={setModal}
       setSelectImages={setSelectImages}
+      favPhotos={favPhotos}
+      setFavPhotos={setFavPhotos}
+      favoritesList={favoritesList}
+      modal={props.modal}
     />
   ));
 

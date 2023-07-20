@@ -8,6 +8,7 @@ const TopNavigation = (props) => {
   const {
     topics,
     navFav,
+    favoritesList,
   } = props;
 
   return (

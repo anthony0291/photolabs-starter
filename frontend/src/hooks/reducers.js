@@ -6,7 +6,6 @@ export const CONSTANTS = {
   UNSET: "UNSET"
 };
 
-
 export function clickedPhotoReducer(state, action) {
   switch (action.type) {
   case CONSTANTS.SET:
