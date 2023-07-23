@@ -3,10 +3,7 @@ import TopicListItem from './TopicListItem';
 import '../styles/TopicList.scss';
 
 
-const TopicList = (props) => {
-  const {
-    topics,
-  } = props;
+const TopicList = ({topics}) => {
 
   const topicList = Object.values(topics);
   const parsedTopics = topicList.map((topic) => (
@@ -17,8 +14,6 @@ const TopicList = (props) => {
       // updatePhotosByTopic={updatePhotosByTopic}
     />
   ));
-
-
 
   return (
     <div className="top-nav-bar__topic-list">

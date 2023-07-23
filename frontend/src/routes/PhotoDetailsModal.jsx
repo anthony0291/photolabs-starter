@@ -1,26 +1,24 @@
+import '../styles/PhotoDetailsModal.scss';
+import '../styles/PhotoListItem.scss';
+
 import React from 'react';
-import {useState} from 'react';
+// import {useState} from 'react';
 import FavIcon from '../components/FavIcon';
 import PhotoFavButton from '../components/PhotoFavButton';
 import PhotoListItem from '../components/PhotoListItem';
 import PhotoList from '../components/PhotoList';
 
-import '../styles/PhotoDetailsModal.scss';
-import '../styles/PhotoListItem.scss';
-
-
 
 
 
 export  const PhotoDetailsModal = (props) => {
+  const { state, setSelectImages, handleFavUpdate, setModal } = props;
 
-  
   console.log("incoming props: " + JSON.stringify(props));
 
-  
-  const imageList = Object.values(props.selectImages.similarPhotos);
+  const imageList = Object.values(props.state.selectImages.similarPhotos);
   // console.log("%%%% image list: " + JSON.stringify(imageList));
-  const currentImage = <img className='photo-details-modal__image' src={props.selectImages.image} />;
+  const currentImage = <img className='photo-details-modal__image' src={ state.selectImages.image } />;
   // console.log("%%%% current Image: " + JSON.stringify(props.selectImages.image));
   
   const parsedImages = imageList.map((image) => {
@@ -37,8 +35,6 @@ export  const PhotoDetailsModal = (props) => {
 
   // console.log("$$$$ parsed Images: " + JSON.stringify(parsedImages));
 
-
-  
   return (
     <div className='photo-details-modal'>
       <button className='photo-details-modal--close-button'
@@ -55,7 +51,6 @@ export  const PhotoDetailsModal = (props) => {
           </defs>
         </svg>
       </button>
-
     
       <div className="photo-details-modal__image_container">
         {currentImage}
@@ -67,31 +62,19 @@ export  const PhotoDetailsModal = (props) => {
             <p className="photo-list__user-location">{props.selectImages.location.city}, {props.selectImages.location.country}</p>
           </div>
         </div>
-
       </div>
 
       <h1 className="photo-details-modal__header">Related Photos</h1>
-      
       <div className="photo-details-modal__top-bar" >
-        
         <div className="photo-details-modal__images">
           <PhotoList
+            setModal={setModal}
             photos={imageList}
-            handleFavUpdate={props.handleFavUpdate}
-            setModal={props.setModal}
-            setSelectImages={props.setSelectImages}
-            favoritesList={props.favoritesList}
-            setFavPhotos={props.setFavPhotos}
-            modal={props.modal}
+            state={state}
+            {...state} setSelectImages={setSelectImages} handleFavUpdate={handleFavUpdate}
           />
         </div>
-
       </div>
-
-      
-      
-      
-     
     </div>
   );
 };

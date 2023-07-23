@@ -1,21 +1,11 @@
 import '../styles/FavBadge.scss';
 
-import React, {useState} from 'react';
+import React from 'react';
 import FavIcon from './FavIcon';
-import TopNavigation from './TopNavigationBar';
 
 
 
-
-
-export const FavBadge = (props) => {
-  const {
-    handleBadge,
-    navFav,
-    favoritesList,
-  } = props;
-
-
+export const FavBadge = ({ handleBadge, favoritesList }) => {
 
   return (
     <div className='fav-badge' onClick={handleBadge} >

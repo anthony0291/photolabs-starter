@@ -1,56 +1,76 @@
-import React, {useState, useReducer } from 'react';
-import photos from '../mocks/photos';
+import {useState, useReducer, useEffect } from 'react';
+import { reducer } from './reducers';
+
+// import photos from '../mocks/photos';
+// import topics from '../mocks/topics';
+import axios from 'axios';
+
+export default function useApplicationData() {
+
+  const [topics, setTopics] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8001/api/topics')
+      .then(res => {
+        // console.log("%%%%%%TOPICS: res. data:" + JSON.stringify(...res.data));
+        setTopics([...res.data]);
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
 
 
-export const ACTIONS = {
-  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
-  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
-  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
-};
-
-export const reducer = (state, action) => {
-  console.log("**** incoming action: " + JSON.stringify(action));
-  const chosen = photos.find(photo => photo.id === action.id);
-  switch (action.type) {
-  case ACTIONS.FAV_PHOTO_ADDED:
-  case ACTIONS.FAV_PHOTO_REMOVED:
-    useApplicationData.handleFavUpdate(action.id);
-    return;
-  case ACTIONS.SET_PHOTO_DATA:
-    state.selectImages = {
-      image: chosen.urls.regular,
-      user: chosen.user,
-      location: chosen.location,
-      similarPhotos: chosen.similarPhotos,
-    };
-    return;
-  case ACTIONS.DISPLAY_PHOTO_DETAILS:
-    return;
-  default:
-    throw new Error(
-      `Unsuported Action Type: ${action.type}`
-    );
-  }
-};
 
 
-export default function useApplicationData(props) {
-  // const state = useState(true);
 
+  const [photos, setPhotos] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8001/api/photos')
+      .then(res => {
+        console.log("%%%%%%PHOTOS: res. data:" + JSON.stringify(...res.data));
+        setPhotos([...res.data]);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
+  //Modal State x
+  // const [modal, setModal] = useReducer(reducer, false);
   const [modal, setModal] = useState(false);
+
+  //Store Images for Modal x
   const [selectImages , setSelectImages] = useReducer(reducer, {});
-  
-    
-  const [favoritesList, setFavPhotos] = useReducer(reducer, []);
+
+  //List of favorite Photo-Ids n
+  const [favoritesList, setFavoriteList] = useReducer(reducer, []);
+
+  //Store Simlar Photos or Baselist x
   const [photosList, setPhotosList] = useReducer(reducer, []);
+
+  //HomeRoute
+  const [ navFav, setNavFav ] = useState(false);
+  const [badgeNav, setBadgeNav] = useState(0);
+
+  //HomeRoute
+  const navBadge = () => {
+    if (badgeNav > 0) {
+      setNavFav(true);
+    }
+    if (badgeNav === 0) {
+      setNavFav(false);
+    }
+  };
   
-  const state = {favoritesList, photosList, modal, setModal, selectImages, setSelectImages };
-  
+
+  //useApplication
+  // const [selectImages , setSelectImages] = useReducer(reducer, {});
+  // const [modal, setModal] =
+
+
   const handleClose = () => setModal(false);
-  
+
   const handleFavUpdate = (itemToUpdate) => {
     console.log("**** Current Fav PhOtos: " + JSON.stringify(favoritesList));
     console.log("**** item to toggle: " + itemToUpdate);
@@ -60,7 +80,6 @@ export default function useApplicationData(props) {
     } else {
       favoritesList.push(itemToUpdate);
     }
-  
     console.log("**** Updated Fav Photos: " + JSON.stringify(favoritesList));
   };
 
@@ -74,26 +93,34 @@ export default function useApplicationData(props) {
     };
   };
 
+  const state = {
+    modal,
+    // setModal,
+    selectImages,
+    // setSelectImages,
+    favoritesList, setFavoriteList,
+    photosList, setPhotosList,
+    badgeNav, setBadgeNav,
+    navFav, setNavFav,
   
-  return {
-    state,
-    handleFavUpdate,
-    setSelectedImage,
     handleClose,
+    handleFavUpdate,
+    // setSelectedImage,
+    navBadge,
+
+    topics,
+    photos,
   };
 
+  return {
+    state,
+
+    setModal,
+    setSelectImages,
+    handleFavUpdate
+  };
+  
+  // handleFavUpdate,
+  // setSelectedImage,
+  // handleClose,
 }
-
-// export default function Application(props) {
-//   const {
-//     state,
-//     onPhotoSelect,
-//     updateToFavPhotoIds,
-//     onLoadTopic,
-//     onClosePhotoDetailsModal,
-//   } = useApplicationData();
-
-//   return (
-//     // React components
-//   );
-// }

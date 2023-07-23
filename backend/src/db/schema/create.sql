@@ -24,3 +24,8 @@ CREATE TABLE PHOTO(
   USER_ID INTEGER REFERENCES USER_ACCOUNT(id) ON DELETE CASCADE,
   TOPIC_ID INTEGER REFERENCES TOPIC(id) ON DELETE CASCADE
 );
+
+
+-- \i backend/src/db/schema/development.sql
+-- \i backend/src/db/schema/production.sql
+-- \i backend/src/db/schema/test.sql
