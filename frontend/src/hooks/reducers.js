@@ -9,9 +9,9 @@ export const ACTIONS = {
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
 };
 
-export const reducer = (state, action) => {
-  console.log("**** incoming action: " + JSON.stringify(action));
-  console.log("**** incoming state: " + JSON.stringify(state));
+export const reducer = function(state, action) {
+  // console.log("**** incoming action: " + JSON.stringify(action));
+  // console.log("**** incoming state: " + JSON.stringify(state));
   // const chosen = photos.find(photo => photo.id === action.info.id);
   switch (action.type) {
   case ACTIONS.FAV_PHOTO_ADDED:
@@ -19,14 +19,13 @@ export const reducer = (state, action) => {
     useApplicationData.handleFavUpdate(action.id);
     return state;
   case ACTIONS.SET_PHOTO_DATA:
-    // console.log("***** set image data from chosen image: " + JSON.stringify(chosen));
     state.selectImages = {
       image: action.info.image,
       user: action.info.user,
       location: action.info.location,
       // similarPhotos: chosen.similarPhotos,
     };
-    console.log("****** activate modal state");
+    // console.log("****** activate modal state");
 
     return state;
   case ACTIONS.DISPLAY_PHOTO_DETAILS:

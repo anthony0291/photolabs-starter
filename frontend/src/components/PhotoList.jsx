@@ -4,16 +4,28 @@ import PhotoListItem from './PhotoListItem';
 import React from 'react';
 
 
-const PhotoList = ({ state, photos, setSelectImages, setModal }) => {
+const PhotoList = (props) => {
+  const {
+    state,
+    favoritesList,
+    setSelectImages,
+    setModal,
+  } = props;
 
-  const photoList = Object.values(photos);
+  const photoList = Object.values(state.photos);
   const parsedPhotos = photoList.map((photo) => (
-    <PhotoListItem
+    < PhotoListItem
       key={photo.id}
-      {...photo}
-      {...state}
-      setModal={setModal}
+      id={photo.id}
+      profile={photo.user.profile}
+      name={photo.user.name}
+      city={photo.location.city}
+      country={photo.location.country}
+      urls={photo.urls.regular}
+      similarPhotos={photo.similar_photos}
+      favoritesList={favoritesList}
       setSelectImages={setSelectImages}
+      setModal={setModal}
     />
   ));
 

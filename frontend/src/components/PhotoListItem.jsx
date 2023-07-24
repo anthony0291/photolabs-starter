@@ -2,50 +2,41 @@ import '../styles/PhotoListItem.scss';
 
 import PhotoFavButton from './PhotoFavButton';
 import React, { useState, useReducer } from 'react';
-
+import useApplicationData from '../hooks/useApplicationData';
 import { reducer, ACTIONS } from '../hooks/reducers';
+// import useApplicationData from '../hooks/useApplicationData';
 
-const defaultListItem = {
-  id: -1,
-  image: "",
-  user: "",
-  location: {},
-  similarPhotos: [],
-};
+// const defaultListItem = {
+//   id: -1,
+//   image: "",
+//   user: "",
+//   location: {},
+//   similarPhotos: [],
+// };
 
 const WHITE = '#EEEEEE';
 const RED = '#FF0000';
-
 const PhotoListItem = (props) => {
   const {
     id,
-    location,
     urls,
-    user,
-    setModal,
+    profile,
+    name,
+    city,
+    country,
     handleFavUpdate,
-    setSelectImages,
-    similarPhotos,
     favoritesList,
+    similarPhotos,
+    setSelectImages,
 
+    //Temp?
+    setModal,
+    // selectImages,
   } = props;
 
 
-  // const [state, dispatch] = useReducer(reducer, {});
 
   const [fill, setFill] = useState(favoritesList.includes(id) ? RED : WHITE);
-  const [favorite, setFavorite] = useState(false);
-  // const [selectListItem, dispatch] = useReducer(reducer, defaultListItem);
-
-  const activeListItem = {
-    id: id,
-    image: urls.regular,
-    user: user,
-    location: location,
-    similarPhotos: similarPhotos,
-    setModal: setModal
-  };
-  
   const handlerFavIcon = () => {
     let prevFillColor = fill;
     setFill((prevFill) => {
@@ -58,50 +49,41 @@ const PhotoListItem = (props) => {
     handleFavUpdate(id);
   };
 
-  
-
-
-  // const listItemSelected = (listItem) => {
-  //   dispatch({ type: 'SET_PHOTO_DATA', info: listItem });
-  //   dispatch({ type: 'DISPLAY_PHOTO_DETAILS', info: listItem });
-  // };
-  //?
-
-  const sendSelectImages = () => {
-    setModal(true);
-    setSelectImages({
-      image: urls.regular,
-      user: user,
-      location: location,
-      similarPhotos: similarPhotos,
-    });
+  const activeListItem = {
+    id: id,
+    image: urls,
+    name: name,
+    profile: profile,
+    city: city,
+    country: country,
+    similarPhotos: similarPhotos,
   };
 
   // PhotoListItem
   const listItemSelected = () => {
-    setSelectImages({type: ACTIONS.SET_PHOTO_DATA, info: activeListItem});
-    setModal({type: ACTIONS.DISPLAY_PHOTO_DETAILS, info: true });
+    setSelectImages(activeListItem);
+    setModal(true);
   };
 
   return (
     <li className="photo-list__item">
       <div className="photo-list__item">
-        <PhotoFavButton
-          handlerFavIcon={handlerFavIcon}
+        < PhotoFavButton
+          handlerFavIcon={handlerFavIcon} //here
           fill={fill}
         />
 
-        <img className="photo-list__image" src={urls.regular}
-          onClick={listItemSelected}
+        < img className="photo-list__image" src={urls}
+          onClick={listItemSelected} // here
         />
-        
+
       </div>
 
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={user.profile}/>
+        <img className="photo-list__user-profile" src={profile}/>
         <div className="photo-list_user-card">
-          <p className="photo-list__user-info">{user.name}</p>
-          <p className="photo-list__user-location">{location.city}, {location.country}</p>
+          <p className="photo-list__user-info">{name}</p>
+          <p className="photo-list__user-location">{city}, {country}</p>
         </div>
       </div>
     </li>

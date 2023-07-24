@@ -7,14 +7,35 @@ import useApplicationData from './hooks/useApplicationData';
 
 
 const App = () => {
-  const { state, handleFavUpdate, setSelectImages, setModal } = useApplicationData();
+  const {
+    state,
+    
+    favoritesList,
+    selectImages,
+    modal,
+    
+    handleFavUpdate,
+    handleBadge,
+    handleClose,
+    
+    setModal,
+    setSelectImages,
+       
+  } = useApplicationData();
 
   return (
     <div className="App">
-      <HomeRoute state={ state }{...state} setSelectImages={setSelectImages} handleFavUpdate={handleFavUpdate} />
+      <HomeRoute state={state} handleFavUpdate={handleFavUpdate} favoritesList={favoritesList} handleBadge={handleBadge}
+        setSelectImages={setSelectImages} handleClose={handleClose} setModal={setModal} selectImages={selectImages}
+      />
        
-      {state.modal === true &&
-      <PhotoDetailsModal state={ state }{...state} setSelectImages={setSelectImages} handleFavUpdate={handleFavUpdate} setModal={setModal} /> }
+    
+
+      {modal === true &&
+      <PhotoDetailsModal state={state} handleFavUpdate={handleFavUpdate}
+        setSelectImages={setSelectImages} selectImages={selectImages} setModal={setModal} handleClose={handleClose}
+      />
+      }
     </div>
   );
 };

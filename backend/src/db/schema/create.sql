@@ -26,6 +26,8 @@ CREATE TABLE PHOTO(
 );
 
 
--- \i backend/src/db/schema/development.sql
--- \i backend/src/db/schema/production.sql
--- \i backend/src/db/schema/test.sql
+\i backend/src/db/schema/development.sql
+\i backend/src/db/schema/production.sql
+\i backend/src/db/schema/test.sql
+
+-- \i backend/src/db/schema/create.sql

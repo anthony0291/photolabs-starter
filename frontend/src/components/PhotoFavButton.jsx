@@ -4,11 +4,12 @@ import React from 'react';
 import FavIcon from './FavIcon';
 
 
-const PhotoFavButton = function({ handlerFavIcon, fill }) {
+const PhotoFavButton = (props) => {
+  const { handlerFavIcon, fill } = props;
 
   return (
     <div className="photo-list__fav-icon" onClick={handlerFavIcon}>
-      <FavIcon fill={fill} />
+      < FavIcon fill={fill} />
     </div>
   );
 };

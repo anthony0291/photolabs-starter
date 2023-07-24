@@ -5,13 +5,37 @@ import PhotoList from '../components/PhotoList';
 import TopNavigationBar from '../components/TopNavigationBar';
 
 
-const HomeRoute = ({ state, setSelectImages, handleFavUpdate, setModal }) => {
+const HomeRoute = (props) => {
+  const {
+    state,
+    favoritesList,
+    selectImages,
+    
+    handleFavUpdate,
+    handleBadge,
+    
+    setSelectImages,
+    setModal,
+  } = props;
 
   return (
     <div className="home-route">
-      <TopNavigationBar state={state} />
+      < TopNavigationBar
+        state={state}
+        handleBadge={handleBadge}
+        favoritesList={favoritesList}
+      />
       <ul>
-        <PhotoList state={state} {...state} setSelectImages={setSelectImages} handleFavUpdate={handleFavUpdate} photos={state.photos} setModal={setModal} />
+
+        < PhotoList
+          state={state}
+          favoritesList={favoritesList}
+          selectImages={selectImages}
+          handleFavUpdate={handleFavUpdate}
+          setSelectImages={setSelectImages}
+          setModal={setModal}
+        />
+
       </ul>
     </div>
   );

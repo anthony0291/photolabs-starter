@@ -3,15 +3,15 @@ import TopicListItem from './TopicListItem';
 import '../styles/TopicList.scss';
 
 
-const TopicList = ({topics}) => {
+const TopicList = (props) => {
+  const { topics } = props;
 
   const topicList = Object.values(topics);
   const parsedTopics = topicList.map((topic) => (
-    <TopicListItem
+    < TopicListItem
       key={topic.id}
       id={topic.id}
       title={topic.title}
-      // updatePhotosByTopic={updatePhotosByTopic}
     />
   ));
 
