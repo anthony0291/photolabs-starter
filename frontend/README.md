@@ -1,3 +1,12 @@
+# PhotoLabs
+
+![Image 1](https://github.com/anthony0291/photolabs-starter/blob/main/frontend/public/Git_sample1.png?raw=true)
+
+![Image 2](https://github.com/anthony0291/photolabs-starter/blob/main/frontend/public/Git_sample2.png?raw=true)
+
+![Image 3](https://github.com/anthony0291/photolabs-starter/blob/main/frontend/public/Git_sample3.png?raw=true)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
