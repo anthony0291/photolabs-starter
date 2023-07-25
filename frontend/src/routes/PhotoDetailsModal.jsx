@@ -2,42 +2,38 @@ import '../styles/PhotoDetailsModal.scss';
 import '../styles/PhotoListItem.scss';
 
 import React from 'react';
-import {useState} from 'react';
 import PhotoFavButton from '../components/PhotoFavButton';
-import PhotoListItem from '../components/PhotoListItem';
 import PhotoList from '../components/PhotoList';
+import { ACTIONS } from '../hooks/reducers';
 
 
-
-
-export const PhotoDetailsModal = (props) => {
+const PhotoDetailsModal = (props) => {
   const {
-    state,
-    setSelectImages,
-    handleFavUpdate,
     setModal,
     selectImages,
-    handleClose,
+
+    setSelectImages,
+    handleFavUpdate,
+    favoritesList,
   } = props;
 
   const {
     id,
-    name,
-    image,
-    profile,
-    city,
-    country,
-    similarPhotos
+    location,
+    urls,
+    user,
+    similarPhotos,
   } = selectImages;
 
-  console.log(similarPhotos);
-  // const newSimilarPhotos = Object.values(similarPhotos);
 
+  const onClickHandleClose = () => {
+    setModal({type: ACTIONS.HANDLE_CLOSE});
+  };
 
   return (
     <div className='photo-details-modal'>
       <button className='photo-details-modal--close-button'
-        onClick={handleClose}
+        onClick={onClickHandleClose}
       >
         <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_428_287)">
@@ -53,12 +49,17 @@ export const PhotoDetailsModal = (props) => {
       </button>
     
       <div className="photo-details-modal__image_container">
-        <img className='photo-details-modal__image' src={image} />
+        <PhotoFavButton
+          id={id}
+          favoritesList={favoritesList}
+          handleFavUpdate={handleFavUpdate} />
+          
+        <img className='photo-details-modal__image' src={urls.full} />
         <div className="photo-list__user-details">
-          <img className="photo-list__user-profile" src={profile}/>
+          <img className="photo-list__user-profile" src={user.profile}/>
           <div className="photo-list_user-card">
-            <p className="photo-list__user-info">{name}</p>
-            <p className="photo-list__user-location">{city}, {country}</p>
+            <p className="photo-list__user-info">{user.name}</p>
+            <p className="photo-list__user-location">{location.city}, {location.country}</p>
           </div>
         </div>
       </div>
@@ -67,10 +68,16 @@ export const PhotoDetailsModal = (props) => {
       <div className="photo-details-modal__top-bar" >
         <div className="photo-details-modal__images">
           
-          
-          {/*  */}
-
-
+          <ul className="photo-list">
+            <PhotoList
+              photos={similarPhotos}
+              favoritesList={favoritesList}
+              selectImages={selectImages}
+              handleFavUpdate={handleFavUpdate}
+              setSelectImages={setSelectImages}
+              setModal={setModal}
+            />
+          </ul>
         </div>
       </div>
     </div>

@@ -2,40 +2,45 @@ import '../styles/HomeRoute.scss';
 
 import React from 'react';
 import PhotoList from '../components/PhotoList';
-import TopNavigationBar from '../components/TopNavigationBar';
+import TopNavigation from '../components/TopNavigationBar';
 
 
 const HomeRoute = (props) => {
   const {
-    state,
-    favoritesList,
-    selectImages,
-    
-    handleFavUpdate,
     handleBadge,
-    
+    state,
+
+    setSelectTopics,
+    favoritesList,
+    handleFavUpdate,
     setSelectImages,
     setModal,
+    setPhotos,
+    toggleFavorites,
+    setToggleFavorites,
+
   } = props;
 
   return (
     <div className="home-route">
-      < TopNavigationBar
+      < TopNavigation
         state={state}
         handleBadge={handleBadge}
         favoritesList={favoritesList}
+        setSelectTopics={setSelectTopics}
+        setPhotos={setPhotos}
+        toggleFavorites={toggleFavorites}
+        setToggleFavorites={setToggleFavorites}
       />
       <ul>
-
+        
         < PhotoList
-          state={state}
+          photos={state.photos}
           favoritesList={favoritesList}
-          selectImages={selectImages}
           handleFavUpdate={handleFavUpdate}
           setSelectImages={setSelectImages}
           setModal={setModal}
         />
-
       </ul>
     </div>
   );

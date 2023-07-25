@@ -8,32 +8,46 @@ import useApplicationData from './hooks/useApplicationData';
 
 const App = () => {
   const {
-    state,
-    
-    favoritesList,
-    selectImages,
     modal,
     
-    handleFavUpdate,
-    handleBadge,
-    handleClose,
-    
+    state,
+    favoritesList,
+    selectImages,
     setModal,
+    handleFavUpdate,
     setSelectImages,
-       
+    setSelectTopics,
+    setPhotos,
+
+    toggleFavorites,
+    setToggleFavorites,
+    
+    handleBadge,
   } = useApplicationData();
 
   return (
     <div className="App">
-      <HomeRoute state={state} handleFavUpdate={handleFavUpdate} favoritesList={favoritesList} handleBadge={handleBadge}
-        setSelectImages={setSelectImages} handleClose={handleClose} setModal={setModal} selectImages={selectImages}
+      <HomeRoute
+        state={state}
+        setSelectImages={setSelectImages}
+        setModal={setModal}
+        favoritesList={favoritesList}
+        selectImages={selectImages}
+        handleFavUpdate={handleFavUpdate}
+        handleBadge={handleBadge}
+        setSelectTopics={setSelectTopics}
+        setPhotos={setPhotos}
+        toggleFavorites={toggleFavorites}
+        setToggleFavorites={setToggleFavorites}
       />
-       
-    
 
       {modal === true &&
-      <PhotoDetailsModal state={state} handleFavUpdate={handleFavUpdate}
-        setSelectImages={setSelectImages} selectImages={selectImages} setModal={setModal} handleClose={handleClose}
+      <PhotoDetailsModal
+        handleFavUpdate={handleFavUpdate}
+        favoritesList={favoritesList}
+        setSelectImages={setSelectImages}
+        selectImages={selectImages}
+        setModal={setModal}
       />
       }
     </div>
@@ -41,3 +55,11 @@ const App = () => {
 };
 
 export default App;
+
+// Fix CSS Cards
+// Fix Hearts Populate Sync
+// Fix Nav Badge Notification Sync
+
+// Populate Page based on favourites
+// Import Topics
+// ReadMe

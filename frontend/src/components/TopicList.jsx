@@ -4,7 +4,13 @@ import '../styles/TopicList.scss';
 
 
 const TopicList = (props) => {
-  const { topics } = props;
+  const {
+    topics,
+    setSelectTopics,
+    favoritesList,
+    setPhotos,
+    basePhotos,
+  } = props;
 
   const topicList = Object.values(topics);
   const parsedTopics = topicList.map((topic) => (
@@ -12,6 +18,10 @@ const TopicList = (props) => {
       key={topic.id}
       id={topic.id}
       title={topic.title}
+      setSelectTopics={setSelectTopics}
+      favoritesList={favoritesList}
+      setPhotos={setPhotos}
+      basePhotos={basePhotos}
     />
   ));
 

@@ -1,89 +1,51 @@
 import '../styles/PhotoListItem.scss';
 
 import PhotoFavButton from './PhotoFavButton';
-import React, { useState, useReducer } from 'react';
-import useApplicationData from '../hooks/useApplicationData';
-import { reducer, ACTIONS } from '../hooks/reducers';
-// import useApplicationData from '../hooks/useApplicationData';
+import React from 'react';
+import { ACTIONS } from '../hooks/reducers';
 
-// const defaultListItem = {
-//   id: -1,
-//   image: "",
-//   user: "",
-//   location: {},
-//   similarPhotos: [],
-// };
 
-const WHITE = '#EEEEEE';
-const RED = '#FF0000';
 const PhotoListItem = (props) => {
   const {
+    setSelectImages,
+    setModal,
+    
     id,
     urls,
-    profile,
-    name,
-    city,
-    country,
+    user,
+    location,
+    similarPhotos,
+    
     handleFavUpdate,
     favoritesList,
-    similarPhotos,
-    setSelectImages,
-
-    //Temp?
-    setModal,
-    // selectImages,
+    
   } = props;
 
 
-
-  const [fill, setFill] = useState(favoritesList.includes(id) ? RED : WHITE);
-  const handlerFavIcon = () => {
-    let prevFillColor = fill;
-    setFill((prevFill) => {
-      prevFillColor = prevFill;
-      if (prevFill === WHITE) {
-        return RED;
-      }
-      return WHITE;
-    });
-    handleFavUpdate(id);
-  };
-
-  const activeListItem = {
-    id: id,
-    image: urls,
-    name: name,
-    profile: profile,
-    city: city,
-    country: country,
-    similarPhotos: similarPhotos,
-  };
-
-  // PhotoListItem
-  const listItemSelected = () => {
-    setSelectImages(activeListItem);
-    setModal(true);
+  const handleSelectImages = () => {
+    setModal({ type: ACTIONS.HANDLE_OPEN });
+    setSelectImages({ type: ACTIONS.HANDLE_SELECT_PHOTOS, id:id, location:location, urls:urls, user:user, similarPhotos:similarPhotos });
   };
 
   return (
     <li className="photo-list__item">
       <div className="photo-list__item">
         < PhotoFavButton
-          handlerFavIcon={handlerFavIcon} //here
-          fill={fill}
+          id={id}
+          favoritesList={favoritesList}
+          handleFavUpdate={handleFavUpdate}
         />
 
-        < img className="photo-list__image" src={urls}
-          onClick={listItemSelected} // here
+        <img className="photo-list__image"
+          src={urls.regular}
+          onClick={handleSelectImages} // here
         />
-
       </div>
-
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={profile}/>
+        <img className="photo-list__user-profile" src={user.profile}/>
         <div className="photo-list_user-card">
-          <p className="photo-list__user-info">{name}</p>
-          <p className="photo-list__user-location">{city}, {country}</p>
+          <p className="photo-list__user-info">{user.name}</p>
+          <p className="photo-list__user-location">{location.city}, {location.country}</p>
         </div>
       </div>
     </li>

@@ -1,58 +1,64 @@
 import {useState, useReducer, useEffect } from 'react';
 import { reducer } from './reducers';
+
 import axios from 'axios';
 
-export default function useApplicationData() {
+
+const useApplicationData = () => {
+ 
   const [topics, setTopics] = useState([]);
   useEffect(() => {
     axios.get('/api/topics')
       .then(res => {
         setTopics([...res.data]);
       })
-      .catch((error) => {
+      .catch((error)=>{
         console.error('Error:', error);
       });
   }, []);
 
-  
+  const [basePhotos, setBasePhotos] = useState([]);
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     axios.get('/api/photos')
       .then(res => {
         setPhotos([...res.data]);
+        setBasePhotos([...res.data]);
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   }, []);
 
-
-  //Modal State x
-  // const [modal, setModal] = useReducer(reducer, false);
-  const [modal, setModal] = useState(true);
-  const [selectImages , setSelectImages] = useState({});
-  const [favoritesList, setFavoriteList] = useReducer(reducer, []);
-
   
-  const [badgeNav, setBadgeNav] = useState(0);
+
+  // ***************************************
+  const [photosByTopicId, setSelectTopics] = useState([]);
+  useEffect(()=>{
+    console.log("Getting photos for topic: " + JSON.stringify(photosByTopicId));
+    if (photosByTopicId.id >= 1) {
+      axios.get('/api/topics/photos/' + photosByTopicId.id)
+        .then(res => {
+          setPhotos([...res.data]);
+        })
+        .catch((error)=>{
+          console.error('Error:', error);
+        });
+    }
+  }, [photosByTopicId]);
+  // ***************************************
+ 
+  // });
+
   const [ navFav, setNavFav ] = useState(false);
-  const [photosList, setPhotosList] = useReducer(reducer, []);
-  
+  const state = { topics, photos, basePhotos, navFav };
+  const [modal, setModal] = useReducer(reducer, false);
+  const [selectImages , setSelectImages] = useReducer(reducer, {});
+  const [favoritesList, setFavoriteList] = useState([]);
 
-  //HomeRoute
-  const handleBadge = ()=> {
-    if (badgeNav > 0) {
-      setNavFav(true);
-    }
-    if (badgeNav === 0) {
-      setNavFav(false);
-    }
-  };
 
-  const handleClose = () => {
-    console.log('modal handleClose');
-    setModal(false);
-  };
+
+  useEffect(() => {}, [navFav]);
 
   const handleFavUpdate = (itemToUpdate) => {
     console.log("**** Current Fav PhOtos: " + JSON.stringify(favoritesList));
@@ -63,33 +69,56 @@ export default function useApplicationData() {
     } else {
       favoritesList.push(itemToUpdate);
     }
+    if (favoritesList.length >= 1) {
+      setNavFav(true);
+    } else {
+      setNavFav(false);
+    }
+    // setFavoriteList(favoritesList);
     console.log("**** Updated Fav Photos: " + JSON.stringify(favoritesList));
   };
 
-  const setSelectedImage = (imageChosen) => {
-    const chosen = photos.find(photo => photo.id === imageChosen.id);
-    state.selectImages = {
-      image: chosen.urls.regular,
-      user: chosen.user,
-      location: chosen.location,
-      similarPhotos: chosen.similarPhotos,
-    };
-  };
 
+  /////
+
+  const [badgeNav, setBadgeNav] = useState(0);
+  const [photosList, setPhotosList] = useReducer(reducer, []);
+  const [toggleFavorites, setToggleFavorites] = useReducer(reducer, false);
+
+  //HomeRoute
+  const handleBadge = ()=> {
+    if (badgeNav > 0) {
+      setNavFav(true);
+    }
+    if (badgeNav === 0) {
+      setNavFav(false);
+    }
+  };
   
-  const state = { topics, photos };
 
   return {
     state,
-
     modal,
     favoritesList,
     selectImages,
-    
     handleFavUpdate,
-    handleBadge,
     setSelectImages,
     setModal,
-    handleClose,
+    setPhotos,
+    toggleFavorites,
+    setToggleFavorites,
+
+    setSelectTopics,
+    handleBadge,
   };
-}
+};
+
+export default useApplicationData;
+
+
+
+//use topic_id to fetch photos when specific topic is clicked.
+
+//TopicList or topic list item
+
+// photos.topic_id
