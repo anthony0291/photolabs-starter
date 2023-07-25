@@ -17,7 +17,6 @@ export const FavBadge = (props) => {
 
   const handleSetFavPhotos = () => {
     let favoritePhotos = [];
-    console.log(toggleFavorites);
     photos.forEach(photo => {
       if (favoritesList.includes(photo.id)) {
         favoritePhotos[photo.id] = photo;
