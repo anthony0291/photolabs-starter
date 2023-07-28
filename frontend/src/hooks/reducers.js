@@ -45,7 +45,3 @@ export const reducer = function(state, action) {
     );
   }
 };
-
-
-
-

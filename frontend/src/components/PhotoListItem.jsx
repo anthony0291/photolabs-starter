@@ -45,5 +45,3 @@ const PhotoListItem = (props) => {
 };
 
 export default PhotoListItem;
-
-

@@ -23,5 +23,3 @@ const TopicListItem = (props) => {
 };
 
 export default TopicListItem;
-
-
