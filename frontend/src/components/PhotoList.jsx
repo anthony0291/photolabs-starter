@@ -1,28 +1,26 @@
 import '../styles/PhotoList.scss';
-
-import PhotoListItem from './PhotoListItem';
 import React from 'react';
+import PhotoListItem from './PhotoListItem';
 
 
 const PhotoList = (props) => {
   const {
     photos,
-
-    handleFavUpdate,
     favoritesList,
     setSelectImages,
     setModal,
+    handleFavUpdate,
   } = props;
 
 
   const photoList = Object.values(photos);
   const parsedPhotos = photoList.map((photo) => (
-    < PhotoListItem
+    <PhotoListItem
       key={photo.id}
       id={photo.id}
-      location={photo.location}
       urls={photo.urls}
       user={photo.user}
+      location={photo.location}
       similarPhotos={photo.similar_photos}
       handleFavUpdate={handleFavUpdate}
       favoritesList={favoritesList}
@@ -34,7 +32,6 @@ const PhotoList = (props) => {
   return (
     <ul className="photo-list">
       {parsedPhotos}
-      
     </ul>
   );
 };

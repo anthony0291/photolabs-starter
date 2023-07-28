@@ -1,24 +1,20 @@
 import '../styles/PhotoListItem.scss';
-
-import PhotoFavButton from './PhotoFavButton';
 import React from 'react';
+import PhotoFavButton from './PhotoFavButton';
 import { ACTIONS } from '../hooks/reducers';
 
 
 const PhotoListItem = (props) => {
   const {
-    setSelectImages,
-    setModal,
-    
     id,
     urls,
     user,
     location,
     similarPhotos,
-    
-    handleFavUpdate,
     favoritesList,
-    
+    setModal,
+    setSelectImages,
+    handleFavUpdate,
   } = props;
 
 
@@ -30,16 +26,12 @@ const PhotoListItem = (props) => {
   return (
     <li className="photo-list__item">
       <div className="photo-list__item">
-        < PhotoFavButton
+        <PhotoFavButton
           id={id}
           favoritesList={favoritesList}
           handleFavUpdate={handleFavUpdate}
         />
-
-        <img className="photo-list__image"
-          src={urls.regular}
-          onClick={handleSelectImages} // here
-        />
+        <img className="photo-list__image" src={urls.regular} onClick={handleSelectImages}/>
       </div>
       <div className="photo-list__user-details">
         <img className="photo-list__user-profile" src={user.profile}/>
@@ -52,7 +44,6 @@ const PhotoListItem = (props) => {
   );
 };
 
- 
 export default PhotoListItem;
 
 

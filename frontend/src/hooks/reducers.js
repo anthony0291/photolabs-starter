@@ -1,4 +1,3 @@
-import useApplicationData from "./useApplicationData";
 
 export const ACTIONS = {
   FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -8,23 +7,16 @@ export const ACTIONS = {
   HANDLE_FAV_ICON: "HANDLE_FAV_ICON",
   HANDLE_OPEN: 'HANDLE_OPEN',
   HANDLE_CLOSE: 'HANDLE_CLOSE',
-
-
-  SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SET_FAV_PHOTOS: 'SET_FAV_PHOTOS',
   TOGGLE_FAV_OPEN: "TOGGLE_FAV_OPEN",
   TOGGLE_FAV_CLOSE: "TOGGLE_FAV_CLOSE",
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
 };
 
 
 export const reducer = function(state, action) {
   const WHITE = '#EEEEEE';
   const RED = '#FF0000';
-
   switch (action.type) {
-  case ACTIONS.SET_FAV_PHOTOS:
   case ACTIONS.FAV_PHOTO_ADDED:
     return RED;
   case ACTIONS.FAV_PHOTO_REMOVED:
@@ -46,23 +38,7 @@ export const reducer = function(state, action) {
   case ACTIONS.TOGGLE_FAV_CLOSE:
     return false;
   case ACTIONS.SET_TOPIC_DATA:
-    console.log(action);
     return action.id;
-
-
-    // case ACTIONS.DISPLAY_PHOTO_DETAILS:
-    //   return state;
-    // case ACTIONS.SELECT_PHOTO:
-    //   return state;
-
-    // case SET
-
-    // setToggleFavorites(true);
-    // setPhotos(favoritePhotos);
-
-
- 
-
   default:
     throw new Error(
       `Unsuported Action Type: ${action.type}`

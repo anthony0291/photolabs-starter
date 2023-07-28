@@ -1,5 +1,4 @@
 import './App.scss';
-
 import React from 'react';
 import HomeRoute from './routes/HomeRoute';
 import PhotoDetailsModal from './routes/PhotoDetailsModal';
@@ -8,21 +7,17 @@ import useApplicationData from './hooks/useApplicationData';
 
 const App = () => {
   const {
-    modal,
-    
     state,
-    favoritesList,
+    modal,
     selectImages,
-    setModal,
-    handleFavUpdate,
-    setSelectImages,
-    setSelectTopics,
-    setPhotos,
-
+    favoritesList,
     toggleFavorites,
+    setModal,
+    setSelectImages,
     setToggleFavorites,
-    
-    handleBadge,
+    setPhotos,
+    setSelectTopics,
+    handleFavUpdate,
   } = useApplicationData();
 
   return (
@@ -30,36 +25,24 @@ const App = () => {
       <HomeRoute
         state={state}
         setSelectImages={setSelectImages}
-        setModal={setModal}
         favoritesList={favoritesList}
-        selectImages={selectImages}
         handleFavUpdate={handleFavUpdate}
-        handleBadge={handleBadge}
         setSelectTopics={setSelectTopics}
+        setModal={setModal}
         setPhotos={setPhotos}
         toggleFavorites={toggleFavorites}
         setToggleFavorites={setToggleFavorites}
       />
-
       {modal === true &&
       <PhotoDetailsModal
+        setModal={setModal}
+        selectImages={selectImages}
+        setSelectImages={setSelectImages}
         handleFavUpdate={handleFavUpdate}
         favoritesList={favoritesList}
-        setSelectImages={setSelectImages}
-        selectImages={selectImages}
-        setModal={setModal}
-      />
-      }
+      />}
     </div>
   );
 };
 
 export default App;
-
-// Fix CSS Cards
-// Fix Hearts Populate Sync
-// Fix Nav Badge Notification Sync
-
-// Populate Page based on favourites
-// Import Topics
-// ReadMe

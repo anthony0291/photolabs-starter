@@ -1,16 +1,19 @@
 import '../styles/FavBadge.scss';
-
 import React from 'react';
 import FavIcon from './FavIcon';
 import { ACTIONS } from '../hooks/reducers';
-import { useState } from 'react';
-
 
 
 export const FavBadge = (props) => {
-  const { photos, setPhotos, basePhotos, favoritesList, toggleFavorites, setToggleFavorites, navFav } = props;
-
-  // const [toggleFavorites, setToggleFavorites] = useState(false);
+  const {
+    photos,
+    setPhotos,
+    basePhotos,
+    favoritesList,
+    toggleFavorites,
+    setToggleFavorites,
+    navFav,
+  } = props;
 
   const handleSetFavPhotos = () => {
     let favoritePhotos = [];
@@ -28,18 +31,12 @@ export const FavBadge = (props) => {
     }
   };
 
-
-  
-
-
   return (
     <div className='fav-badge' onClick={handleSetFavPhotos} >
-      < FavIcon
+      <FavIcon
         width={20}
         height={17}
         fill="#C80000"
-
-        // not sure fix later with useReducer
         displayAlert={navFav}/>
     </div >
   );
