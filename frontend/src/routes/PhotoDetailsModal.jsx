@@ -1,5 +1,6 @@
 import '../styles/PhotoDetailsModal.scss';
 import '../styles/PhotoListItem.scss';
+
 import React from 'react';
 import PhotoFavButton from '../components/PhotoFavButton';
 import PhotoList from '../components/PhotoList';
@@ -10,21 +11,29 @@ const PhotoDetailsModal = (props) => {
   const {
     setModal,
     selectImages,
+
     setSelectImages,
     handleFavUpdate,
     favoritesList,
   } = props;
 
-  const { id, location, urls, user, similarPhotos } = selectImages;
+  const {
+    id,
+    location,
+    urls,
+    user,
+    similarPhotos,
+  } = selectImages;
 
-  const handleClose = () => {
+
+  const onClickHandleClose = () => {
     setModal({type: ACTIONS.HANDLE_CLOSE});
   };
 
   return (
     <div className='photo-details-modal'>
       <button className='photo-details-modal--close-button'
-        onClick={handleClose}
+        onClick={onClickHandleClose}
       >
         <svg width="24" height="24" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clipPath="url(#clip0_428_287)">
@@ -43,8 +52,8 @@ const PhotoDetailsModal = (props) => {
         <PhotoFavButton
           id={id}
           favoritesList={favoritesList}
-          handleFavUpdate={handleFavUpdate}
-        />
+          handleFavUpdate={handleFavUpdate} />
+          
         <img className='photo-details-modal__image' src={urls.full} />
         <div className="photo-list__user-details">
           <img className="photo-list__user-profile" src={user.profile}/>
@@ -54,9 +63,11 @@ const PhotoDetailsModal = (props) => {
           </div>
         </div>
       </div>
+
       <h1 className="photo-details-modal__header">Related Photos</h1>
       <div className="photo-details-modal__top-bar" >
         <div className="photo-details-modal__images">
+          
           <ul className="photo-list">
             <PhotoList
               photos={similarPhotos}

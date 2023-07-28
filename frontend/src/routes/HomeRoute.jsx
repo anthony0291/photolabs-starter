@@ -1,12 +1,15 @@
 import '../styles/HomeRoute.scss';
+
 import React from 'react';
-import TopNavigation from '../components/TopNavigationBar';
 import PhotoList from '../components/PhotoList';
+import TopNavigation from '../components/TopNavigationBar';
 
 
 const HomeRoute = (props) => {
   const {
+    handleBadge,
     state,
+
     setSelectTopics,
     favoritesList,
     handleFavUpdate,
@@ -15,12 +18,14 @@ const HomeRoute = (props) => {
     setPhotos,
     toggleFavorites,
     setToggleFavorites,
+
   } = props;
 
   return (
     <div className="home-route">
-      <TopNavigation
+      < TopNavigation
         state={state}
+        handleBadge={handleBadge}
         favoritesList={favoritesList}
         setSelectTopics={setSelectTopics}
         setPhotos={setPhotos}
@@ -28,7 +33,8 @@ const HomeRoute = (props) => {
         setToggleFavorites={setToggleFavorites}
       />
       <ul>
-        <PhotoList
+        
+        < PhotoList
           photos={state.photos}
           favoritesList={favoritesList}
           handleFavUpdate={handleFavUpdate}
@@ -39,5 +45,6 @@ const HomeRoute = (props) => {
     </div>
   );
 };
+
 
 export default HomeRoute;

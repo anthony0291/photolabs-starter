@@ -1,6 +1,6 @@
-import '../styles/TopicList.scss';
 import React from 'react';
 import TopicListItem from './TopicListItem';
+import '../styles/TopicList.scss';
 
 
 const TopicList = (props) => {
@@ -8,16 +8,20 @@ const TopicList = (props) => {
     topics,
     setSelectTopics,
     favoritesList,
+    setPhotos,
+    basePhotos,
   } = props;
 
   const topicList = Object.values(topics);
   const parsedTopics = topicList.map((topic) => (
-    <TopicListItem
+    < TopicListItem
       key={topic.id}
       id={topic.id}
       title={topic.title}
       setSelectTopics={setSelectTopics}
       favoritesList={favoritesList}
+      setPhotos={setPhotos}
+      basePhotos={basePhotos}
     />
   ));
 
@@ -27,5 +31,6 @@ const TopicList = (props) => {
     </div>
   );
 };
+
 
 export default TopicList;
